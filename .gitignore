@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+.venv313/
+
+# Build / packaging
+ragcitecheck.egg-info/
+dist/
+build/
+
+# Outputs
+out_check/
+out_report/
+out_validate/
+
+# OS
+.DS_Store
+Thumbs.db

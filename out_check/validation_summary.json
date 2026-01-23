@@ -1,0 +1,28 @@
+{
+  "runs": 2,
+  "run_ids": [
+    "A",
+    "B"
+  ],
+  "union_queries": 2,
+  "intersection_queries": 2,
+  "allow_missing": false,
+  "topk": null,
+  "warnings": [
+    "run[0] 'A' null-citation rate is 50.0% (1/2 queries have empty docs list).",
+    "run[1] 'B' null-citation rate is 50.0% (1/2 queries have empty docs list).",
+    "Detected 1 canonical doc_id collisions (multiple raw ids map to the same canonical id). Consider refining docid-map or normalization."
+  ],
+  "canonicalization": {
+    "mapped_count": 0,
+    "unmapped_count": 0,
+    "collision_count": 1,
+    "collisions": {
+      "doc1": 2
+    }
+  },
+  "files": {
+    "A": "tests\\fixtures\\runs_min\\runA.jsonl",
+    "B": "tests\\fixtures\\runs_min\\runB.jsonl"
+  }
+}

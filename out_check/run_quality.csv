@@ -1,0 +1,3 @@
+run_id,citation_rate,null_rate,avg_cited_docs,median_cited_docs,p95_cited_docs
+A,0.500000,0.500000,0.500000,0.500,1.000
+B,0.500000,0.500000,1.000000,1.000,2.000

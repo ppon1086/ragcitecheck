@@ -1,0 +1,3 @@
+query_id,min_overlap_across_pairs,worst_pair,stable_at_min_overlap_0.5
+Q1,0.500000,A vs B,1
+Q2,1.000000,N/A,1

@@ -47,20 +47,93 @@ def _extract_first_str(rec: Dict[str, Any], keys: Tuple[str, ...], what: str) ->
     raise ValueError(f"record missing {what} (tried keys: {list(keys)})")
 
 
-def _extract_docs_list(rec: Dict[str, Any], docs_keys: Tuple[str, ...]) -> List[Any]:
+def _truncate(val: Any, n: int = 160) -> str:
+    s = repr(val)
+    return s if len(s) <= n else s[: n - 3] + "..."
+
+
+def _extract_docs_list_with_key(rec: Dict[str, Any], docs_keys: Tuple[str, ...]) -> Tuple[str, List[Any]]:
+    """
+    Returns (docs_key_used, docs_list).
+    """
     for k in docs_keys:
         if k in rec and rec[k] is not None:
             v = rec[k]
             if not isinstance(v, list):
                 raise ValueError(f"{k} must be a list (got {type(v).__name__})")
-            return v
+            return k, v
     raise ValueError(f"record missing docs list (tried keys: {list(docs_keys)})")
 
 
-def _extract_doc_id(doc_obj: Any, doc_id_keys: Tuple[str, ...]) -> str:
-    if not isinstance(doc_obj, dict):
-        raise ValueError(f"doc entry must be an object/dict (got {type(doc_obj).__name__})")
-    return _extract_first_str(doc_obj, doc_id_keys, what="doc_id")
+def _deep_find_first_str(obj: Any, keys: Tuple[str, ...], max_depth: int = 3) -> Optional[str]:
+    """
+    Searches nested dict/list structures for the first non-empty string-like value
+    under any of the provided keys. Depth-limited to avoid pathological logs.
+    """
+    if max_depth < 0:
+        return None
+
+    if isinstance(obj, dict):
+        # direct hit first
+        for k in keys:
+            if k in obj and obj[k] is not None:
+                v = obj[k]
+                if isinstance(v, str):
+                    s = v.strip()
+                    if s:
+                        return s
+                else:
+                    s = str(v).strip()
+                    if s:
+                        return s
+
+        # nested search
+        for v in obj.values():
+            found = _deep_find_first_str(v, keys, max_depth=max_depth - 1)
+            if found:
+                return found
+
+    elif isinstance(obj, list):
+        for it in obj:
+            found = _deep_find_first_str(it, keys, max_depth=max_depth - 1)
+            if found:
+                return found
+
+    return None
+
+
+def _extract_doc_id_flexible(doc_obj: Any, doc_id_keys: Tuple[str, ...], *, docs_key_used: str) -> str:
+    """
+    Supports:
+      - doc entry as str -> doc_id directly
+      - doc entry as dict -> try keys + nested lookup
+    """
+    if isinstance(doc_obj, str):
+        s = doc_obj.strip()
+        if not s:
+            raise ValueError(f"Empty doc_id string in '{docs_key_used}' docs list.")
+        return s
+
+    if isinstance(doc_obj, dict):
+        # first: top-level keys (fast path)
+        s = _deep_find_first_str(doc_obj, doc_id_keys, max_depth=0)
+        if s:
+            return s
+
+        # second: nested lookup (common shapes: source.doc_id, metadata.document_id, etc.)
+        s = _deep_find_first_str(doc_obj, doc_id_keys, max_depth=3)
+        if s:
+            return s
+
+        raise ValueError(
+            f"Doc entry dict in '{docs_key_used}' is missing doc_id. "
+            f"Tried keys={list(doc_id_keys)}. Entry={_truncate(doc_obj)}"
+        )
+
+    raise ValueError(
+        f"Doc entry in '{docs_key_used}' must be str or dict "
+        f"(got {type(doc_obj).__name__}). Entry={_truncate(doc_obj)}"
+    )
 
 
 # -------------------------
@@ -110,6 +183,7 @@ def validate_runs_folder(
     *,
     runs_dir: Path,
     canonicalizer: Canonicalizer,
+    allow_missing: bool = False,   
     opts: ValidateOptions,
 ) -> ValidationResult:
     if not runs_dir.exists() or not runs_dir.is_dir():
@@ -145,22 +219,11 @@ def validate_runs_folder(
                 raise ValueError(f"{rf} line {lineno}: duplicate query_id within the same run: {qid}")
             qset.add(qid)
 
-            docs_list = _extract_docs_list(rec, opts.docs_keys)
-            if opts.topk is not None:
-                if opts.topk <= 0:
-                    raise ValueError("--topk must be positive if provided")
-                docs_list = docs_list[: opts.topk]
-
-            total_queries += 1
-
-            if len(docs_list) == 0:
-                null_docs += 1
-                q2docs_set[qid] = set()
-                continue
+            docs_key_used, docs_list = _extract_docs_list_with_key(rec, opts.docs_keys)
 
             raw_doc_ids: List[str] = []
             for d in docs_list:
-                raw = _extract_doc_id(d, opts.doc_id_keys)
+                raw = _extract_doc_id_flexible(d, opts.doc_id_keys, docs_key_used=docs_key_used)
                 raw_doc_ids.append(raw)
                 all_raw_doc_ids_for_collision_scan.append(raw)
 

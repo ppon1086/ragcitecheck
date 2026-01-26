@@ -296,7 +296,9 @@ def validate_runs_folder(
                 )
 
     # collision scan (after canonicalization)
-    collision_report = canonicalizer.detect_collisions(all_raw_doc_ids_for_collision_scan, report=None)
+    unique_raw_ids_for_collision_scan = sorted(set(all_raw_doc_ids_for_collision_scan))
+
+    collision_report = canonicalizer.detect_collisions(unique_raw_ids_for_collision_scan,report=None)
     if collision_report.collision_count > 0:
         warnings.append(
             f"Detected {collision_report.collision_count} canonical doc_id collisions "

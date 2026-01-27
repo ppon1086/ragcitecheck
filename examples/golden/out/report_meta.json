@@ -1,0 +1,28 @@
+{
+  "allow_missing": false,
+  "baseline": null,
+  "canonicalization": {
+    "collision_count": 2,
+    "collisions": {
+      "docm": 2,
+      "docz": 2
+    },
+    "mapped_count": 3,
+    "unmapped_count": 26
+  },
+  "flip_threshold": 0.5,
+  "min_overlap": 0.5,
+  "out_dir": "examples\\golden\\out",
+  "pairwise_rows": 1,
+  "query_count": 11,
+  "run_ids": [
+    "golden_run_1",
+    "golden_run_2"
+  ],
+  "runs_dir": "examples\\golden\\runs",
+  "topk": null,
+  "warnings": [
+    "run[0] 'golden_run_1' had 1 queries with duplicate doc_ids in docs list; deduping to doc-level sets was applied.",
+    "Detected 2 canonical doc_id collisions (multiple raw ids map to the same canonical id). Consider refining docid-map or normalization."
+  ]
+}

@@ -1,0 +1,2 @@
+configA,configB,avg_overlap,flip_rate,null_rate_A,null_rate_B,null_loss_A_to_B,null_gain_A_to_B
+golden_run_1,golden_run_2,0.757576,0.272727,0.090909,0.090909,0.000000,0.000000

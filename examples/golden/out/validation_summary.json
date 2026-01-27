@@ -1,0 +1,28 @@
+{
+  "runs": 2,
+  "run_ids": [
+    "golden_run_1",
+    "golden_run_2"
+  ],
+  "union_queries": 11,
+  "intersection_queries": 11,
+  "allow_missing": false,
+  "topk": null,
+  "warnings": [
+    "run[0] 'golden_run_1' had 1 queries with duplicate doc_ids in docs list; deduping to doc-level sets was applied.",
+    "Detected 2 canonical doc_id collisions (multiple raw ids map to the same canonical id). Consider refining docid-map or normalization."
+  ],
+  "canonicalization": {
+    "mapped_count": 3,
+    "unmapped_count": 26,
+    "collision_count": 2,
+    "collisions": {
+      "docm": 2,
+      "docz": 2
+    }
+  },
+  "files": {
+    "golden_run_1": "examples\\golden\\runs\\run1.jsonl",
+    "golden_run_2": "examples\\golden\\runs\\run2.jsonl"
+  }
+}

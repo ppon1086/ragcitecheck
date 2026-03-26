@@ -12,5 +12,5 @@ dependencies = []
 
 [project.scripts]
 ragcitecheck = "ragcitecheck.cli:main"
-[tool.setuptools]
-packages= ["ragcitecheck"]
+[tool.setuptools.packages.find]
+include = ["ragcitecheck*"]

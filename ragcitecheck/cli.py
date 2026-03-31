@@ -161,17 +161,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             topn_examples=int(args.topn_examples),
             include_top1=bool(args.include_top1),
         )   
-            runs_dir=runs_dir,
-            out_dir=out_dir,
-            canonicalizer=canonicalizer,
-            min_overlap=float(args.min_overlap),
-            flip_threshold=float(args.flip_threshold),
-            topk=vopts.topk,
-            allow_missing=vopts.allow_missing,
-            baseline=args.baseline,
-            topn_examples=int(args.topn_examples),
-            include_top1=bool(args.include_top1),
-        )
+            
         print(f"Report written to: {out_dir}")
         print(f"Wrote: {out_dir / 'validation_summary.json'}")
         print(f"Wrote: {out_dir / 'report_meta.json'}")

@@ -1,0 +1,11 @@
+{"run_id":"golden_run_1","query_id":"q_stable_1","cited":["docA","docB"]}
+{"run_id":"golden_run_1","query_id":"q_flip_1","cited":["docC","docD"]}
+{"run_id":"golden_run_1","query_id":"q_flip_2","cited":["docE"]}
+{"run_id":"golden_run_1","query_id":"q_null_1","cited":[]}
+{"run_id":"golden_run_1","query_id":"q_dedup_1","cited":["docF","docF","docG"]}
+{"run_id":"golden_run_1","query_id":"q_topk_1","cited":["docH","docI"]}
+{"run_id":"golden_run_1","query_id":"q_shape_str_1","cited":["docJ"]}
+{"run_id":"golden_run_1","query_id":"q_shape_dict_1","cited":[{"doc_id":"docK"}]}
+{"run_id":"golden_run_1","query_id":"q_shape_nested_1","cited":[{"source":{"doc_id":"docL"}}]}
+{"run_id":"golden_run_1","query_id":"q_map_1","cited":["DocM"]}
+{"run_id":"golden_run_1","query_id":"q_collision_1","cited":["docX"]}

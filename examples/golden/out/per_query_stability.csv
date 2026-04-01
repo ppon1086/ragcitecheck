@@ -1,0 +1,12 @@
+query_id,min_overlap_across_pairs,worst_pair,stable_at_min_overlap_0.5
+q_collision_1,0.000000,golden_run_1 vs golden_run_2,0
+q_flip_2,0.000000,golden_run_1 vs golden_run_2,0
+q_flip_1,0.333333,golden_run_1 vs golden_run_2,0
+q_dedup_1,1.000000,N/A,1
+q_map_1,1.000000,N/A,1
+q_null_1,1.000000,N/A,1
+q_shape_dict_1,1.000000,N/A,1
+q_shape_nested_1,1.000000,N/A,1
+q_shape_str_1,1.000000,N/A,1
+q_stable_1,1.000000,N/A,1
+q_topk_1,1.000000,N/A,1

@@ -8,10 +8,10 @@ from typing import Any, Dict, Optional
 from ragcitecheck.canonicalize import CanonicalizeOptions, Canonicalizer
 from ragcitecheck.report import generate_report
 from ragcitecheck.validate import ValidateOptions, validate_runs_folder
-_DEFAULT_RUN_ID_KEYS = ("run_id", "runId", "config_id")
+_DEFAULT_RUN_ID_KEYS = ("run_id", "runId", "config_id","run","id")
 _DEFAULT_QUERY_ID_KEYS = ("query_id", "qid", "id")
-_DEFAULT_DOCS_KEYS = ("cited", "retrieved", "contexts")
-_DEFAULT_DOC_ID_KEYS = ("doc_id", "document_id", "id")
+_DEFAULT_DOCS_KEYS = ("cited", "docs", "documents", "retrieved", "contexts")
+_DEFAULT_DOC_ID_KEYS = ("doc_id", "document_id", "id","docid","source_id")
 
 
 

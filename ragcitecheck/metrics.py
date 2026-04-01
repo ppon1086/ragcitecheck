@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
+from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 
 def jaccard(a: Set[str], b: Set[str]) -> float:
@@ -22,7 +22,7 @@ def jaccard(a: Set[str], b: Set[str]) -> float:
 
 def is_major_flip(j: float, flip_threshold: float) -> bool:
     """
-    Major flip indicator.
+    Major flip indicator:
       - Flip if J < threshold (strict).
     """
     return j < flip_threshold
@@ -104,6 +104,7 @@ def compute_run_quality(
         sizes: List[int] = []
         non_empty = 0
         total = 0
+
         for qid in query_ids:
             if qid not in qmap:
                 continue
@@ -138,8 +139,7 @@ def compute_pairwise_summaries(
     compute_top1: bool = False,
 ) -> Tuple[List[PairwiseSummary], Dict[Tuple[str, str, str], float]]:
     """
-    Computes pairwise summary stats and also returns per-query per-pair Jaccards
-    for plotting and per-query global instability.
+    Computes pairwise summary stats and also returns per-query per-pair Jaccards.
 
     Returns:
       - pairwise summaries
@@ -174,6 +174,8 @@ def compute_pairwise_summaries(
         null_b = 0
         null_loss = 0
         null_gain = 0
+
+        # optional "top1" diagnostics
         top1_match = 0
         top1_total = 0
 
@@ -196,15 +198,12 @@ def compute_pairwise_summaries(
             flips.append(1.0 if is_major_flip(j, flip_threshold) else 0.0)
 
             if compute_top1:
-                # "primary doc" = first in sorted order for determinism in v0.1
-                # (If you later log explicit primary, replace this.)
+                # v0.1: "primary doc" defined deterministically as min(doc_id)
                 top1_total += 1
                 pa = min(sa) if sa else None
                 pb = min(sb) if sb else None
-                if pa == pb and pa is not None:
-                    top1_match += 1
-                elif pa is None and pb is None:
-                    # if both have no primary, count as match? For stability, yes.
+                if pa == pb:
+                    # includes pa==pb==None (stable empty)
                     top1_match += 1
 
         n = len(query_ids) if query_ids else 0
@@ -256,7 +255,6 @@ def compute_per_query_instability(
                 key = (a, b, qid) if a < b else (b, a, qid)
                 jv = jaccard_cache.get(key)
                 if jv is None:
-                    # compute if cache missing
                     jv = jaccard(runs[a].get(qid, set()), runs[b].get(qid, set()))
                 if jv < min_j:
                     min_j = jv
@@ -274,6 +272,5 @@ def compute_per_query_instability(
             )
         )
 
-    # Sort: most unstable first
-    out.sort(key=lambda r: (r.min_overlap, r.query_id))
+    out.sort(key=lambda r: (r.min_overlap, r.query_id))  # most unstable first
     return out

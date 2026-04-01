@@ -8,10 +8,10 @@ from typing import Any, Dict, Optional
 from ragcitecheck.canonicalize import CanonicalizeOptions, Canonicalizer
 from ragcitecheck.report import generate_report
 from ragcitecheck.validate import ValidateOptions, validate_runs_folder
-_DEFAULT_RUN_ID_KEYS = ("run_id", "runId", "config_id")
+_DEFAULT_RUN_ID_KEYS = ("run_id", "runId", "config_id","run","id")
 _DEFAULT_QUERY_ID_KEYS = ("query_id", "qid", "id")
-_DEFAULT_DOCS_KEYS = ("cited", "retrieved", "contexts")
-_DEFAULT_DOC_ID_KEYS = ("doc_id", "document_id", "id")
+_DEFAULT_DOCS_KEYS = ("cited", "docs", "documents", "retrieved", "contexts")
+_DEFAULT_DOC_ID_KEYS = ("doc_id", "document_id", "id","docid","source_id")
 
 
 
@@ -48,7 +48,14 @@ def main(argv: Optional[list[str]] = None) -> int:
                        help="Comma-separated keys to find docs list (e.g., cited,retrieved,contexts).")
         p.add_argument("--doc-id-keys", type=str, default=None,
                        help="Comma-separated keys to find doc_id in doc entries (e.g., doc_id,document_id,id,source_id).")
-
+        p.add_argument(
+            "--evidence-key",
+            type=str,
+            default="doc",
+            choices=["doc", "doc_span"],
+            help='Evidence identity mode: "doc"=doc_id only; "doc_span"=(doc_id,span_hash).',
+        )
+        
 
     p_validate = sub.add_parser("validate", help="Validate runs folder schema and coverage.")
     add_common(p_validate)
@@ -95,15 +102,15 @@ def main(argv: Optional[list[str]] = None) -> int:
         docs_keys=docs_keys,
         doc_id_keys=doc_id_keys,
         allow_missing=bool(args.allow_missing),
+        evidence_key=str(args.evidence_key),
         topk=int(args.topk) if args.topk is not None else None,
     )
 
-  
+    
     vres = validate_runs_folder(
         runs_dir=runs_dir,
         canonicalizer=canonicalizer,
-        allow_missing=bool(args.allow_missing),
-        opts = vopts
+        opts = vopts,
         )
 
 
@@ -145,10 +152,16 @@ def main(argv: Optional[list[str]] = None) -> int:
             flip_threshold=float(args.flip_threshold),
             topk=vopts.topk,
             allow_missing=vopts.allow_missing,
+            evidence_keys=(str(args.evidence_key),),
+            run_id_keys=run_id_keys,
+            query_id_keys=query_id_keys,
+            docs_keys=docs_keys,
+            doc_id_keys=doc_id_keys,
             baseline=args.baseline,
             topn_examples=int(args.topn_examples),
             include_top1=bool(args.include_top1),
-        )
+        )   
+            
         print(f"Report written to: {out_dir}")
         print(f"Wrote: {out_dir / 'validation_summary.json'}")
         print(f"Wrote: {out_dir / 'report_meta.json'}")

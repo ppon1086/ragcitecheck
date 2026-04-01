@@ -356,10 +356,6 @@ If you are interested in integrating `ragcitecheck` into another repo, an issue 
 
 > A lightweight tool for measuring document-level and span-level evidence stability in RAG pipelines across runs, configs, and retrieval settings.
 
-### One-line GitHub repo description
-
-> Measure citation and evidence stability in RAG pipelines across runs and configuration changes.
-
 ---
 
 ## Citation / research context

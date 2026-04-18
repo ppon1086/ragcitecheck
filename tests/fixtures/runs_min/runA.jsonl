@@ -1,2 +1,3 @@
-{"run_id":"A","query_id":"Q1","cited":[{"doc_id":"doc1"}]}
-{"run_id":"A","query_id":"Q2","cited":[]}
+{"run_id":"runA","query_id":"q1","retrieved":[{"doc_id":"D1"},{"doc_id":"D2"}]}
+{"run_id":"runA","query_id":"q2","retrieved":[{"doc_id":"D3"}]}
+{"run_id":"runA","query_id":"q3","retrieved":[]}

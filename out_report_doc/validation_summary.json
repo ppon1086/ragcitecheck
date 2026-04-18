@@ -1,0 +1,25 @@
+{
+  "runs": 2,
+  "run_ids": [
+    "runA",
+    "runB"
+  ],
+  "union_queries": 3,
+  "intersection_queries": 3,
+  "allow_missing": false,
+  "topk": null,
+  "warnings": [
+    "run[0] 'runA' null-citation rate is 33.3% (1/3 queries have empty docs list).",
+    "run[1] 'runB' null-citation rate is 33.3% (1/3 queries have empty docs list)."
+  ],
+  "canonicalization": {
+    "mapped_count": 0,
+    "unmapped_count": 0,
+    "collision_count": 0,
+    "collisions": null
+  },
+  "files": {
+    "runA": "tests\\fixtures\\runs_min\\runA.jsonl",
+    "runB": "tests\\fixtures\\runs_min\\runB.jsonl"
+  }
+}

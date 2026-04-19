@@ -181,20 +181,12 @@ Report outputs may include:
 - separation of answer drift vs evidence drift
 - lightweight post-hoc comparison from exported logs
 
-## Good fit for awesome lists
-
-`ragcitecheck` is best described as a:
+---`ragcitecheck` is best described as a:
 
 - **RAG evidence stability checker**
 - **citation stability diagnostic tool**
 - **post-hoc provenance stability evaluator**
 - **evidence drift analysis utility for RAG**
-
-### Short awesome-list blurb
-
-> A lightweight tool for measuring document-level and span-level evidence stability in RAG pipelines across runs, configs, and retrieval settings.
-
----
 
 ## Citation / research context
 

@@ -194,7 +194,12 @@ Report outputs may include:
 
 > A lightweight tool for measuring document-level and span-level evidence stability in RAG pipelines across runs, configs, and retrieval settings.
 
-## Development status
+---
+
+## Citation / research context
+
+This tool is also used in experimental workflows studying evidence stability and retrieval jitter in RAG systems.  
+But the repository is intended to be useful even outside the original research context.
 
 This project is under active cleanup and packaging improvement.
 

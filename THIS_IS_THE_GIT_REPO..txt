@@ -1,0 +1,1 @@
+Push and commit from only this folder.

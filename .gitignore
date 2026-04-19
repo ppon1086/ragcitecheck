@@ -1,8 +1,10 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+out_*/
 # Virtual environments
 .venv/
 .venv313/
@@ -20,3 +22,5 @@ out_validate/
 # OS
 .DS_Store
 Thumbs.db
+
+

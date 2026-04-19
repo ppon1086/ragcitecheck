@@ -1,0 +1,29 @@
+# Minimal integration example
+
+This example shows how to compare two RAG run logs with `ragcitecheck`.
+
+## Validate the logs
+
+python -m ragcitecheck.cli validate --runs ./examples/minimal --out ./out_check
+
+## Generate a document-level report
+python -m ragcitecheck.cli report --runs ./examples/minimal --out ./out_report_doc --evidence-key doc
+
+## Generate a document+span-level report
+python -m ragcitecheck.cli report --runs ./examples/minimal --out ./out_report_span --evidence-key doc_span
+
+This workflow is intended for post-hoc evaluation of exported RAG run logs.
+
+## What `runA.jsonl` and `runB.jsonl` should be
+
+## sample runA.jsonl
+{"run_id":"runA","query_id":"q1","retrieved":[{"doc_id":"D1"},{"doc_id":"D2"}]}
+{"run_id":"runA","query_id":"q2","retrieved":[{"doc_id":"D3"}]}
+{"run_id":"runA","query_id":"q3","retrieved":[]}
+
+
+## sample runB.jsonl
+{"run_id":"runB","query_id":"q1","retrieved":[{"doc_id":"D1"},{"doc_id":"D4"}]}
+{"run_id":"runB","query_id":"q2","retrieved":[{"doc_id":"D3"}]}
+{"run_id":"runB","query_id":"q3","retrieved":[]}
+

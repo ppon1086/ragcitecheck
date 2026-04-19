@@ -1,2 +1,0 @@
-config_a,config_b,avg_overlap,flip_rate,null_rate_a,null_rate_b,null_loss_rate_a_to_b,null_gain_rate_a_to_b,stable_at_min_overlap_0.5
-runA,runB,0.777778,0.333333,0.333333,0.333333,0.000000,0.000000,1

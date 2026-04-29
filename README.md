@@ -2,9 +2,7 @@
 
 **ragcitecheck** is a lightweight tool for measuring **citation and evidence stability** in Retrieval-Augmented Generation (RAG) pipelines across repeated runs and configuration changes.
 
-It helps answer a practical question:
-
-> If I rerun the same RAG pipeline with a different retriever, chunk size, top-k, overlap, or prompt setting, do I still get the **same evidence**?
+It helps answer a practical question:  If I rerun the same RAG pipeline with a different retriever, chunk size, top-k, overlap, or prompt setting, do I still get the **same evidence**?
 
 ## Why this matters
 
@@ -19,11 +17,11 @@ A system may produce similar answers while silently changing:
 - which spans inside documents it relies on
 - how often evidence disappears entirely
 
-`ragcitecheck` is designed to make that visible.
+"ragcitecheck" is designed to make that visible.
 
 ## What it does
 
-Given one or more run logs in JSONL format, `ragcitecheck` can:
+Given one or more run logs in JSONL format, "ragcitecheck" can:
 
 - validate run structure with flexible key aliases
 - compare **document-level** evidence stability
@@ -193,7 +191,7 @@ Report outputs may include:
 This tool is also used in experimental workflows studying evidence stability and retrieval jitter in RAG systems.  
 But the repository is intended to be useful even outside the original research context.
 
-This project is under active cleanup and packaging improvement.
+This project is actively maintained, with ongoing improvements to examples, reporting, and integrations.
 
 Current focus:
 - cleaner package structure

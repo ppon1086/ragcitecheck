@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ragcitecheck"
-version = "0.2.0"
+version = "0.2.1"
 description = "Measure citation and evidence stability in RAG pipelines across runs and configuration changes."
 readme = "README.md"
 requires-python = ">=3.10"

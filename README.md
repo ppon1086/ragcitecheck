@@ -4,6 +4,8 @@
 
 It helps answer a practical question:  If I rerun the same RAG pipeline with a different retriever, chunk size, top-k, overlap, or prompt setting, do I still get the **same evidence**?
 
+**Research context:** `ragcitecheck` is an open-source tool associated with peer-reviewed research accepted at the ACL 2026 EvalEval Workshop on evaluation of language models and systems.
+
 ## Why this matters
 
 Most RAG evaluation focuses on answer correctness, groundedness, retrieval recall, latency, or cost.
@@ -46,8 +48,8 @@ Given one or more run logs in JSONL format, "ragcitecheck" can:
 ### Windows
 
 ```bash
-py -3.13 -m venv .venv313
-.venv313\Scripts\activate
+py -3.10 -m venv .venv
+.venv\Scripts\activate
 python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 pip install -e .
@@ -56,8 +58,8 @@ pip install -e .
 ### macOS / Linux
 
 ```bash
-python3.13 -m venv .venv313
-source .venv313/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 pip install -e .
@@ -170,7 +172,7 @@ Report outputs may include:
 - **Large doc vs span gap**  
   The same documents may be cited across runs while cited spans still change substantially
 
-## Why other repos may integrate it
+## Integration use cases
 
 `ragcitecheck` adds a capability that many RAG evaluation stacks do not report directly:
 
@@ -179,25 +181,19 @@ Report outputs may include:
 - separation of answer drift vs evidence drift
 - lightweight post-hoc comparison from exported logs
 
----`ragcitecheck` is best described as a:
+`ragcitecheck` is best described as a:
 
 - **RAG evidence stability checker**
 - **citation stability diagnostic tool**
 - **post-hoc provenance stability evaluator**
 - **evidence drift analysis utility for RAG**
 
+
 ## Citation / research context
 
-This tool is also used in experimental workflows studying evidence stability and retrieval jitter in RAG systems.  
-But the repository is intended to be useful even outside the original research context.
+The tool supports experimental workflows studying evidence stability, citation consistency, and retrieval jitter in RAG systems. The repository is intended to be useful both as a research artifact and as a lightweight utility for post-hoc evidence stability checks in external RAG pipelines.
 
 This project is actively maintained, with ongoing improvements to examples, reporting, and integrations.
-
-Current focus:
-- cleaner package structure
-- better CLI/report wiring
-- stronger examples and tests
-- easier integration into external RAG tooling
 
 ## License
 

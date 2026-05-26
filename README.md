@@ -19,11 +19,11 @@ A system may produce similar answers while silently changing:
 - which spans inside documents it relies on
 - how often evidence disappears entirely
 
-"ragcitecheck" is designed to make that visible.
+`ragcitecheck` is designed to make that visible.
 
 ## What it does
 
-Given one or more run logs in JSONL format, "ragcitecheck" can:
+Given one or more run logs in JSONL format, `ragcitecheck` can:
 
 - validate run structure with flexible key aliases
 - compare **document-level** evidence stability
@@ -157,6 +157,10 @@ Report outputs may include:
 - `instability_examples.md`
 - `citation_overlap_hist.png`
 - `report_meta.json`
+
+## Sample report
+
+See [`examples/golden/out`](examples/golden/out) for a sample generated report, including CSV summaries, instability examples, metadata, and a citation-overlap histogram.
 
 ## Interpreting results
 
